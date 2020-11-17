@@ -2,10 +2,10 @@ twitch-obs-mover
 ---
 
 ### Commands
-- `!right [number]`: Move the source `100/STEPS * _number_` percent to the right
-- `!left [number]`: Move the source `100/STEPS * _number_` percent to the left
-- `!up [number]`: Move up the source by `100/STEPS * _number_` percent
-- `!down [number]`: Move down the source by `100/STEPS * _number_` percent
+- `!right [number]`: Move the source `100/STEPS * number` percent to the right
+- `!left [number]`: Move the source `100/STEPS * number` percent to the left
+- `!up [number]`: Move up the source by `100/STEPS * number` percent
+- `!down [number]`: Move down the source by `100/STEPS * number` percent
 - `!random [number]`: Move the source to a random direction _number_ times
 
 The default value for _number_  is `1`.
