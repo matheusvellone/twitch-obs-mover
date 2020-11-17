@@ -1,5 +1,6 @@
 require('dotenv/config')
 const tmi = require('tmi.js')
+const Promise = require('bluebird')
 const {
   clamp,
   find,
@@ -30,6 +31,16 @@ const client = new tmi.Client({
 	},
 	channels: [ CHANNEL ]
 })
+
+const randomMovement = async (limit, count = 0) => {
+  if (count > limit) {
+    return
+  }
+  await move(Math.round(Math.random() * 2 - 1), Math.round(Math.random() * 2 - 1))
+  await Promise.delay(100)
+
+  await randomMovement(limit, count + 1)
+}
 
 const move = async (v, h) => {
   const response = await obs.send('GetSceneList')
@@ -66,15 +77,26 @@ const run = async () => {
   console.log('Connected')
 
   client.on('message', (channel, tags, message) => {
-    switch (message) {
+    const [
+      command,
+      number = 1,
+    ] = message.split(' ')
+
+    if (Number(number) >= 1000) {
+      return
+    }
+
+    switch (command) {
       case '!up':
-        return move(-1, 0)
+        return move(-number, 0)
       case '!down':
-        return move(1, 0)
+        return move(number, 0)
       case '!right':
-        return move(0, 1)
+        return move(0, number)
       case '!left':
-        return move(0, -1)
+        return move(0, -number)
+      case '!random':
+        return randomMovement(number)
     }
   })
 }
