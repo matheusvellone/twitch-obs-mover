@@ -66,8 +66,6 @@ const run = async () => {
   console.log('Connected')
 
   client.on('message', (channel, tags, message) => {
-    console.log(`${tags['display-name']}: ${message}`)
-
     switch (message) {
       case '!up':
         return move(-1, 0)
@@ -78,9 +76,6 @@ const run = async () => {
       case '!left':
         return move(0, -1)
     }
-
-    // client.say(channel, `@${tags.username}, heya!`)
-    //   .catch(console.log)
   })
 }
 
